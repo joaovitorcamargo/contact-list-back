@@ -31,6 +31,11 @@ class PeopleRepository
         return People::create($data);
     }
 
+    public function getPeople($peopleId)
+    {
+        return People::with('contacts')->find($peopleId);
+    }
+
     public function editPeople($peopleId, $data)
     {
         $people = People::find($peopleId);

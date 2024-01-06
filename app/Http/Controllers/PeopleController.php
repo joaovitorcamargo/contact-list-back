@@ -45,6 +45,18 @@ class PeopleController extends Controller
         }
     }
 
+    public function getPeople(People $people)
+    {
+        try {
+            $people = $this->peopleService->getPeople($people->id);
+            return response()->json([
+                'data' => $people
+            ], 200);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
     public function editPeople(People $people, PeopleEditRequest $request)
     {
         try {

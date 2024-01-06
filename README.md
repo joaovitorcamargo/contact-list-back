@@ -20,7 +20,7 @@ Contact List API
 -   [x] Create a new people
 -   [x] Edit existing people details
 -   [x] Remove a people
--   [] View specific people details
+-   [x] View specific people details
 -   [x] Create a new contact for a people
 -   [] Edit existing contact details for a people
 -   [] Remove a contact from a people

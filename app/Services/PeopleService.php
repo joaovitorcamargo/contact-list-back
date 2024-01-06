@@ -34,6 +34,17 @@ class PeopleService
         }
     }
 
+    public function getPeople($peopleId)
+    {
+        $people = $this->peopleRepository->getPeople($peopleId);
+
+        if (!$people) {
+            throw new Exception('People Not Found', 404);
+        }
+
+        return $people;
+    }
+
     public function updatePeople($peopleId, $data)
     {
         $peopleUpdated = $this->peopleRepository->editPeople($peopleId, $data);

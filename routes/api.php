@@ -19,10 +19,12 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('people')->group(function () {
     Route::get('/',  [PeopleController::class, 'getAllPeoples']);
     Route::post('/',  [PeopleController::class, 'registerPeople']);
+    Route::get('/{people}',  [PeopleController::class, 'getPeople']);
     Route::put('/{people}',  [PeopleController::class, 'editPeople']);
     Route::delete('/{people}',  [PeopleController::class, 'deletePeople']);
 });
 
 Route::prefix('contact')->group(function () {
-    Route::delete('/{id}',  [ContactController::class, 'deleteContact']);
+    Route::put('/{contact}',  [ContactController::class, 'editContact']);
+    Route::delete('/{contact}',  [ContactController::class, 'deleteContact']);
 });

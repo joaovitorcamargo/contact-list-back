@@ -29,4 +29,26 @@ class ContactRepository
 
         return true;
     }
+
+    public function deleteContact($contactId)
+    {
+        $contact = Contact::find($contactId);
+        if (!$contact) {
+            return false;
+        }
+        $contact->delete();
+
+        return true;
+    }
+
+    public function editContact($contactId, $data)
+    {
+        $contact = Contact::find($contactId);
+        $contact->update($data);
+        if (!$contact) {
+            return false;
+        }
+
+        return true;
+    }
 }

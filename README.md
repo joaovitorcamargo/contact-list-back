@@ -17,11 +17,11 @@ Contact List API
 
 ## Functional Requirements
 
--   [] Create a new people
--   [] Edit existing people details
--   [] Remove a people
+-   [x] Create a new people
+-   [x] Edit existing people details
+-   [x] Remove a people
 -   [] View specific people details
--   [] Create a new contact for a people
+-   [x] Create a new contact for a people
 -   [] Edit existing contact details for a people
 -   [] Remove a contact from a people
 -   [] View specific contact details for a people
@@ -29,13 +29,13 @@ Contact List API
 ## Business Rules
 
 ### People Management:
--   [] Users can create, update, retrieve, and delete people records.
+-   [x] Users can create, update, retrieve, and delete people records.
 -   [] Each people can have multiple contacts (phone, email, WhatsApp, etc.).
 ### Contact Management:
--   [] Users can create, update, retrieve, and delete contact details for a people.
+-   [x] Users can create, update, retrieve, and delete contact details for a people.
 -   [] Contact details may include various types such as phone, email, whatsapp.
 ### Data Integrity and Validation:
--   [] A person cannot have duplicate records based on email or any other unique identifier.
--   [] Validation to ensure that contact details entered are in the correct format (e.g., valid email address format, proper phone number format).
+-   [x] A person cannot have duplicate records based on email or any other unique identifier.
+-   [x] Validation to ensure that contact details entered are in the correct format (e.g., valid email address format, proper phone number format).
 ### Relationship Management:
-- [] Establish a relationship between a person and their contacts, allowing efficient retrieval and management of contacts associated with a particular person.
+- [x] Establish a relationship between a person and their contacts, allowing efficient retrieval and management of contacts associated with a particular person.

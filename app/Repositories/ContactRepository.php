@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Models\Contact;
+
 class ContactRepository
 {
     public function createContactsForPeople($people, $data)
@@ -13,6 +15,18 @@ class ContactRepository
             ];
         })->all();
 
+        foreach ($contacts as $value) {
+            $alreadyExistsContact = Contact::where('type', $value['type'])
+                ->where('contact_info', $value['contact_info'])
+                ->first();
+
+            if ($alreadyExistsContact) {
+                return false;
+            }
+        }
+
         $people->contacts()->createMany($contacts);
+
+        return true;
     }
 }

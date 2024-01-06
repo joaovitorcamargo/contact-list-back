@@ -2,58 +2,71 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PeopleRequest;
-use App\Repositories\ContactRepository;
-use App\Repositories\PeopleRepository;
+use App\Http\Requests\{
+    PeopleContactRequest,
+    PeopleEditRequest
+};
+use App\Models\People;
+use App\Services\PeopleService;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-
-use function PHPUnit\Framework\throwException;
 
 class PeopleController extends Controller
 {
-    private $peopleRepository;
-    private $contactRepository;
+    private $peopleService;
 
-    public function __construct(PeopleRepository $peopleRepository, ContactRepository $contactRepository)
+    public function __construct(PeopleService $peopleService)
     {
-        $this->peopleRepository = $peopleRepository;
-        $this->contactRepository = $contactRepository;
+        $this->peopleService = $peopleService;
     }
 
-    public function getAllPeoples()
+    public function getAllPeoples(Request $request)
     {
         try {
-            $people = $this->peopleRepository->getAllPeoples();
-
+            $peoples = $this->peopleService->getAllPeoples($request->all());
             return response()->json([
-                'data' => $people
+                'data' => $peoples
             ], 200);
         } catch (Exception $e) {
             throw $e;
         }
     }
 
-    public function registerPeople(PeopleRequest $request)
+    public function registerPeople(PeopleContactRequest $request)
     {
         try {
             $validatedRequest = $request->validated();
-            $people = $this->peopleRepository->createPeople($validatedRequest);
-            $this->contactRepository->createContactsForPeople($people, $validatedRequest['contacts']);
+            $this->peopleService->createPeople($validatedRequest);
             return response()->json([], 201);
         } catch (Exception $e) {
-            throw $e;
+            return response()->json([
+                'message' => $e->getMessage()
+            ], $e->getCode());
         }
     }
 
-    public function editPeople()
+    public function editPeople(People $people, PeopleEditRequest $request)
     {
-        Log::info('aqui edit');
+        try {
+            $validatedRequest = $request->validated();
+            $this->peopleService->updatePeople($people->id, $validatedRequest);
+            return response()->json([], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ], $e->getCode());
+        }
     }
 
-    public function deletePeople()
+    public function deletePeople(People $people)
     {
-        Log::info('aqui delete');
+        try {
+            $this->peopleService->deletePeople($people->id);
+            return response()->json([], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ], $e->getCode());
+        }
     }
 }

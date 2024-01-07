@@ -25,7 +25,7 @@ class PeopleController extends Controller
         try {
             $peoples = $this->peopleService->getAllPeoples($request->all());
             return response()->json([
-                'data' => $peoples
+                'peoples' => $peoples
             ], 200);
         } catch (Exception $e) {
             throw $e;
@@ -50,14 +50,14 @@ class PeopleController extends Controller
         try {
             $people = $this->peopleService->getPeople($people->id);
             return response()->json([
-                'data' => $people
+                'people' => $people
             ], 200);
         } catch (Exception $e) {
             throw $e;
         }
     }
 
-    public function editPeople(People $people, PeopleEditRequest $request)
+    public function editPeople(People $people, PeopleContactRequest $request)
     {
         try {
             $validatedRequest = $request->validated();

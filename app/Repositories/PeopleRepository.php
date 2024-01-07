@@ -39,6 +39,19 @@ class PeopleRepository
     public function editPeople($peopleId, $data)
     {
         $people = People::find($peopleId);
+
+        foreach ($data['contacts'] as $value) {
+            $contact = $people->contacts();
+            if (isset($value['id'])) {
+                $existingContact = $contact->find($value['id']);
+                if ($existingContact) {
+                    $existingContact->update($value);
+                    continue;
+                }
+            }
+            $contact->create($value);
+        }
+
         $people->update($data);
         if (!$people) {
             return false;
